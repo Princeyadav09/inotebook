@@ -1,6 +1,5 @@
 {
-  "homepage": "https://Princeyadav09.github.io/TextUtils-React",
-  "name": "prince",
+  "name": "newsapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,13 +8,13 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-top-loading-bar": "^2.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -39,11 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "nodemon": "^2.0.22"
   }
 }
