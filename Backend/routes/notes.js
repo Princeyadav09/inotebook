@@ -4,7 +4,7 @@ const fetchuser =require('../middleware/fetchUser');
 const Note = require('../models/Note');
 const {body,validationResult} = require('express-validator');
 
-
+// video 52
 // Route :1 Get all teh notes using : GET "/api/auth/getuser". Login required
 
 router.get('/fetchallnotes', fetchuser, async (req, res)=>{
