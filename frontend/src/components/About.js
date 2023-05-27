@@ -1,6 +1,4 @@
 import React from 'react'
-import { useContext,useEffect } from 'react'
-import noteContext from '../Context/notes/noteContext'
 
 function About() {
  
