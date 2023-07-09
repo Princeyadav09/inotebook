@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Users from './Users'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
-    const [text,setText] = useState("");
-    const [url,seturl] = useState(`http://localhost:4000/api/auth/getusers/?searchText=${text}&`)
+    const [url,seturl] = useState(`http://localhost:4000/api/auth/getusers/?searchText=${""}&`)
     
    
     const handleSubmit = (e) => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
                 <div className="row m-3">
                     <ul>
                         <li>
-                           <a href='#' onClick={(e)=>{seturl(url+"sortbynotes=notes&")}}>Acoording to notes</a> 
+                           <Link to='#' onClick={(e)=>{seturl(url+"sortbynotes=notes&")}}>Acoording to notes</Link> 
                         </li>
                     </ul>
                 </div>
