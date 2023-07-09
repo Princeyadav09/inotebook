@@ -4,7 +4,7 @@
   "description": "iNotebook - your notebook on the cloud",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,5 +17,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.5.0",
     "mongoose": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=16.9"
   }
 }
