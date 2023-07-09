@@ -3,9 +3,11 @@ const router = express.Router();
 const fetchuser =require('../middleware/fetchUser');
 const Note = require('../models/Note');
 const {body,validationResult} = require('express-validator');
+const User = require('../models/User');
+
 
 // video 52
-// Route :1 Get all teh notes using : GET "/api/notes/getuser". Login required
+// Route :1 Get all the notes using : GET "/api/notes/getuser". Login required
 
 router.get('/fetchallnotes', fetchuser, async (req, res)=>{
    try {
@@ -41,6 +43,14 @@ try {
         title, description, tag, user: req.user.id
      })
      const savedNote = await note.save()
+
+    await User.updateOne({
+        _id: req.user.id
+    }, {
+        $inc: {
+            nomOfnotes: 1
+        }
+    })
 
     res.json(savedNote)
 
@@ -98,6 +108,15 @@ router.delete('/deletenote/:id', fetchuser, async (req, res)=>{
     }
 
     note = await Note.findByIdAndDelete(req.params.id)
+
+    await User.updateOne({
+        _id: req.params.id
+    }, {
+        $inc: {
+            nomOfnotes: -1
+        }
+    })
+
     res.json({"Success":"Note has been delete",note:note});
           
     } catch (error) {
@@ -106,8 +125,6 @@ router.delete('/deletenote/:id', fetchuser, async (req, res)=>{
     }
 
 });
-
-
 
 
 module.exports = router

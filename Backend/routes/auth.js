@@ -37,7 +37,9 @@ router.post('/createuser',[
      user = await User.create({
         name: req.body.name,
         password: secPass,      
-        email: req.body.email,      
+        email: req.body.email,  
+        userType: req.body.userType,  
+        nomOfnotes: 0,  
     });
     
     const data = {
@@ -46,9 +48,9 @@ router.post('/createuser',[
         }
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
-    
+    const name=user.name;
    success=true;
-    res.json({success,authtoken})
+    res.json({success,authtoken,name})
 
     } catch (error) {
         console.error(error.message);
@@ -76,18 +78,14 @@ router.post('/login',
     console.log(req.body);
     console.log(email,password);
     if(!email || !password){
-        return res.status(400).json({error: "Email and password are not found"})
-
+        return res.status(400).json({success,error: "Email and password are not found" });
     }
-
-
-     
 
      try {
         let user = await User.findOne({email});
         if(!user){
             success =false;
-            return res.status(400).json(success,{error:"Please try to login with correct credential"});
+            return res.status(400).json({success,error:"Please try to login with correct credential"});
         }
 
         const passwordComapre = await bcrypt.compare(password,user.password);
@@ -101,10 +99,12 @@ router.post('/login',
                 id: user.id
             }
         }
+        const userType=user.userType;
+        const name=user.name;
 
         const authtoken = jwt.sign(data, JWT_SECRET);
         success= true;
-        res.json({success,authtoken})
+        res.send({success,authtoken,userType,name})
 
      } catch (error) {
         console.error(error.message);
@@ -113,13 +113,34 @@ router.post('/login',
 
 });
 
-// Route :3 Get loggedin user details using : post "/api/auth/getuser". No login required
-router.post('/getuser',fetchuser , async (req, res)=>{
+// Route :3 Get loggedin user details using : post "/api/auth/getuser". 
+router.get('/getusers', async (req, res)=>{
 
     try {
-        userId=req.user.id;
-        const user = await User.findById(userId).select("-password");
-        res.send(user);
+
+        let filteredUsers = await User.find({userType:"user"});
+
+        filteredUsers = filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
+  
+        const { sortbynotes , searchText , maxNotes , minNotes  } = req.query;
+        if(sortbynotes){
+            filteredUsers = filteredUsers.sort((a, b) => a.nomOfnotes - b.nomOfnotes);
+        }
+        if (searchText) {
+            const searchQuery = searchText.toLowerCase();
+            filteredUsers = filteredUsers.filter(user =>
+              user.name.toLowerCase().includes(searchQuery) ||
+              user.email.toLowerCase().includes(searchQuery)
+            );
+          }
+        if(maxNotes){
+            filteredUsers = filteredUsers.filter(user => user.nomOfnotes >= parseInt(maxNotes));
+        }
+        if(minNotes){
+            filteredUsers = filteredUsers.filter(user => user.nomOfnotes <= parseInt(minNotes));
+        }
+        res.send(filteredUsers);
+        
     } catch (error) {
             console.error(error.message);
             res.status(500).send("Internal Server Error"); 

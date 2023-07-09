@@ -17,6 +17,13 @@ const UserSchema = new Schema ({
     date:{
         type: Date,
         default: Date.now
+    },
+    userType:{
+        type: String,
+        default: "user"
+    },
+    nomOfnotes:{
+        type: Number,
     }
 });
 const User= mongoose.model('user',UserSchema);
