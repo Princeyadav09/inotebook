@@ -3,12 +3,12 @@ import Users from './Users'
 import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
-    const [url,seturl] = useState(`http://localhost:4000/api/auth/getusers/?searchText=${""}&`)
+    const [url,seturl] = useState(`https://inotebook-backend-xi5u.onrender.com/api/auth/getusers/?searchText=${""}&`)
     
    
     const handleSubmit = (e) => {
     
-          seturl(`http://localhost:4000/api/auth/getusers/?searchText=${e.target.value}&`)
+          seturl(`https://inotebook-backend-xi5u.onrender.com/api/auth/getusers/?searchText=${e.target.value}&`)
         
     }
     
