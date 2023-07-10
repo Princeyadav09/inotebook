@@ -65,11 +65,11 @@ const Signup = (props) => {
 
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-3">
         <div className="row ">
             <div className="col-md-8 mt-5 border-end border-primary ">
                   {/* <h1 className=''>Welcome to Inotebok</h1> */}
-                  <img src={inotebook} alt="" />
+                  <img src={inotebook} alt="" class="img-fluid" />
             </div>
             <div className="col-md-4 mt-5  ">
             <div className="container my-2  rounded py-3" style={{width: "fit-content",backgroundColor:"#efc2b2"}}>
